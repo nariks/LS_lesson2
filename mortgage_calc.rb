@@ -31,7 +31,7 @@ def valid_input?(user_input, apr_flag = nil)
     # ^ start of line, $ end of line
     # \d* any number of digits
     # +(\.\d{1,2})? optional 1 or 2 digits after decimal point
-    user_input.match(/^\d*+(\.\d{1,2})?$/)
+    user_input.match(/^\d+(\.\d{1,2})?$/)
   end
 end
 
