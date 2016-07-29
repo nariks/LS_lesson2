@@ -1,7 +1,7 @@
 GAME_RULES = { "r" => { "name"   => "Rock",
                         "wins"   => %w(s l),
                         "action" => %w(crushes crushes) },
-               "s" => { "name"   => "Scisscors",
+               "s" => { "name"   => "Scissors",
                         "wins"   => %w(p l),
                         "action" => %w(cuts decapacitates) },
                "p" => { "name"   => "Paper",
@@ -58,11 +58,11 @@ def display_winner(winner, choice)
   prompt(win_result)
 end
 
-def validate_input(player_input)
+def validate_input
   loop do
+    player_input = gets.chomp.downcase
     return player_input if valid_choice?(player_input)
     prompt("Invalid Entry. Choose from r,p,s,l,sp")
-    player_input = gets.chomp
   end
 end
 
@@ -82,14 +82,6 @@ def display_selection_choices
 end
 
 # Tracks scores after each game is played
-score = { "Player"   => 0,
-          "Computer" => 0,
-          "Tie"      => 0 }
-
-# Stores  player's and computer's choice
-choices = { "Player"   => "",
-            "Computer" => "" }
-
 continue = true # tracks if player wants to continue playing.
 
 system("clear")
@@ -98,9 +90,17 @@ prompt("\e[31mFirst to reach 5 points wins\e[0m")
 display_selection_choices
 
 while continue
+  score = { "Player"   => 0,
+            "Computer" => 0,
+            "Tie"      => 0 }
+
+  # Stores  player's and computer's choice
+  choices = { "Player"   => "",
+              "Computer" => "" }
+
   loop do
     prompt("Enter your choice")
-    choices["Player"] = validate_input(gets.chomp)
+    choices["Player"] = validate_input
     choices["Computer"] = GAME_RULES.keys.sample
 
     winner = return_winner(choices)
